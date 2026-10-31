@@ -33,22 +33,24 @@ export function Masthead() {
       </a>
     )}
     <header className="masthead">
-      <div className="masthead-top">
-        <div className="page masthead-top-inner">
-          <span className="muted">{today}</span>
-          <span className="masthead-links">
-            <a href={NATIONAL_URL} target="_blank" rel="noopener">
-              National picture <span aria-hidden="true">↗</span>
-            </a>
-            <a href={`${client.base}/docs`} target="_blank" rel="noopener">
-              API <span aria-hidden="true">↗</span>
-            </a>
-            <a href={SOURCE_CODE_URL} target="_blank" rel="noopener">
-              Build your own <span aria-hidden="true">↗</span>
-            </a>
-          </span>
+      {config.topBar !== false && (
+        <div className="masthead-top">
+          <div className="page masthead-top-inner">
+            <span className="muted">{today}</span>
+            <span className="masthead-links">
+              <a href={NATIONAL_URL} target="_blank" rel="noopener">
+                National picture <span aria-hidden="true">↗</span>
+              </a>
+              <a href={`${client.base}/docs`} target="_blank" rel="noopener">
+                API <span aria-hidden="true">↗</span>
+              </a>
+              <a href={SOURCE_CODE_URL} target="_blank" rel="noopener">
+                Build your own <span aria-hidden="true">↗</span>
+              </a>
+            </span>
+          </div>
         </div>
-      </div>
+      )}
       <div className="page masthead-main">
         <Link to="/" className="masthead-title">
           {config.logo && <img src={config.logo} alt="" className="masthead-logo" />}

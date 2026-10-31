@@ -90,6 +90,9 @@ export default defineConfig({
     url: "https://github.com/aaronaco"
   },
   siteUrl: "https://caloocan-portal.transparency-portal.workers.dev",
+  // The footer already links to the source, the national site and the API.
+  buildYourOwnStrip: false,
+  topBar: false,
   scope: {
     offices: [
       "Metro Manila 3rd District Engineering Office"

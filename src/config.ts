@@ -63,6 +63,12 @@ export interface PortalConfig {
    * linking to the source on GitHub. On unless set to false.
    */
   buildYourOwnStrip?: boolean;
+  /**
+   * The thin bar at the top of the masthead: today's date and links to the
+   * national site, the API and the source (the footer has the same links).
+   * On unless set to false.
+   */
+  topBar?: boolean;
   /** Budget API host. Default https://budget.bettergov.ph. VITE_API_BASE overrides it. */
   api?: string;
   scope: {
