@@ -8,19 +8,20 @@ const escape = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').r
 /** The portal's name and description in the HTML itself, for link previews and search engines. */
 function portalHtml(api: string): Plugin {
   const title = `${portal.name} · FY 2027 budget projects`;
-  const description = `Every FY 2027 project for ${shortNameOf(portal)} in the NEP and the House bill (House Bill 10858), with the source page for each, and the enacted budgets 2020–2026. Data from the BetterGov.ph Budget API.`;
-  const url = portal.siteUrl
-    ? `<link rel="canonical" href="${escape(portal.siteUrl)}" />\n    <meta property="og:url" content="${escape(portal.siteUrl)}" />`
-    : '';
+  const description = [
+    portal.independence,
+    `Every FY 2027 project for ${shortNameOf(portal)} in the NEP and the House bill (House Bill 10858), with the source page for each, and the enacted budgets 2020–2026. Data from the BetterGov.ph Budget API.`,
+  ].filter(Boolean).join(' ');
+  // No canonical link or og:url here: every route serves this same file, so
+  // each page sets its own at runtime (useCanonical).
   return {
     name: 'portal-html',
     transformIndexHtml: (html) =>
       html
         .replaceAll('%PORTAL_TITLE%', escape(title))
-        .replaceAll('%PORTAL_NAME%', escape(portal.name))
+        .replaceAll('%PORTAL_NAME%', escape(portal.siteName ?? portal.name))
         .replaceAll('%PORTAL_DESCRIPTION%', escape(description))
-        .replaceAll('%PORTAL_API%', escape(api))
-        .replaceAll('%PORTAL_URL_META%', url),
+        .replaceAll('%PORTAL_API%', escape(api)),
   };
 }
 

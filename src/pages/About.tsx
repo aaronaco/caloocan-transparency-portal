@@ -56,6 +56,7 @@ function AboutView({ scope, overview }: { scope: ScopeResult; overview: Overview
           Every figure comes from the BetterGov.ph Budget API, which sets the House bill against the NEP project by project.
           This portal asks the API the questions below and shows every line it gets back.
         </p>
+        {config.independence && <p className="independence">{config.independence}</p>}
       </PageHead>
 
       <section className="section" aria-labelledby="q-h">

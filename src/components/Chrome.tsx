@@ -115,6 +115,7 @@ export function Footer() {
     )}
     <footer className="footer">
       <div className="page footer-inner">
+        {config.independence && <p className="footer-independence">{config.independence}</p>}
         <p className="footer-source">
           Source: NEP FY 2027 and House Bill 10858 · via the BetterGov.ph Budget API
           {meta && <> · data built {date(meta.built_at)}</>}

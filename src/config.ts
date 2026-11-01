@@ -61,8 +61,20 @@ export interface PortalConfig {
   repo?: string;
   /** Optional logo: a path under public/ ("/brand/lgu-seal.png") or a URL. */
   logo?: string;
-  /** Canonical URL of this deployment, for link previews. */
+  /** Canonical URL of this deployment. Each page names its own address under it as canonical. */
   siteUrl?: string;
+  /**
+   * The site name link previews show (og:site_name). Defaults to `name`. Set it
+   * when `name` alone reads like the LGU's own site: "Bohol Budget Portal (independent)".
+   */
+  siteName?: string;
+  /**
+   * A short line saying who does not run this portal: "Independent project. Not
+   * run by the Provincial Government of Bohol." When set, it is shown in the
+   * footer on every page and at the top of the About page, and starts the
+   * link-preview description.
+   */
+  independence?: string;
   /**
    * The blue "Create your own transparency portal" strip above the masthead,
    * linking to the source on GitHub. On unless set to false.
