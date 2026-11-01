@@ -66,6 +66,13 @@ function ProjectView({ env }: { env: Envelope<ProjectDetail> }) {
   const inScope = scope.status === 'ready' ? scope.value.projects.find((x) => x.key === projectKey(p.dataset, p.id)) : undefined;
   const versions = VERSIONS.filter((v) => v !== 'api' || p.dataset === 'dpwh');
   const report = reportHref(config, p, window.location.origin + location.pathname);
+  // A wrong listing in this portal (a namesake, the wrong office) goes to its own repository, not the central report.
+  const wrongListing = config.repo
+    ? `${config.repo}/issues/new?${new URLSearchParams({
+        title: `Wrong project: ${p.title}`,
+        body: `Project: ${p.title}\nKey: ${projectKey(p.dataset, p.id)}\nPage: ${window.location.origin + location.pathname}\n\nWhat's wrong (wrong city, wrong office, other):\n`,
+      })}`
+    : null;
 
   const details: [string, string | null][] = [
     ['Program', program?.label ?? p.dataset.toUpperCase()],
@@ -172,6 +179,16 @@ function ProjectView({ env }: { env: Envelope<ProjectDetail> }) {
               </p>
             )}
           </div>
+
+          {wrongListing && (
+            <div className="report report-listing">
+              <p className="label">Something wrong with this line here?</p>
+              <p className="small">
+                Not in {shortNameOf(config)}, or listed wrong on this page? Tell us and we'll fix it.
+              </p>
+              <a className="button" href={wrongListing} target="_blank" rel="noopener">Report it on GitHub ↗</a>
+            </div>
+          )}
 
           <p className="small links">
             <External href={p.url}>This project on budget.bettergov.ph</External>

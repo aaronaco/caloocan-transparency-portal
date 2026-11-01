@@ -378,6 +378,8 @@
 .report { background: var(--paper-2); padding: 14px 16px; border: 1px solid var(--rule-soft); }
 .report p { margin: 0 0 8px; }
 .report p.small { margin: 0; color: var(--ink-2); }
+.report-listing { margin-top: 14px; background: none; border-left: 3px solid var(--accent); }
+.report-listing p.small { margin: 0 0 10px; }
 .links { line-height: 1.9; margin: 0; }
 
 /* ---------- About ---------- */
@@ -394,6 +396,11 @@
 code { font-family: var(--font-mono); font-size: 0.9em; background: var(--paper-3); padding: 1px 4px; }
 
 /* ---------- Footer ---------- */
+.help-band { background: var(--accent-soft); border-top: 1px solid var(--rule); }
+.help-band-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; padding-top: 22px; padding-bottom: 22px; }
+.help-band-h { margin: 0 0 4px; font-family: var(--font-hero); font-weight: 700; font-size: 18px; }
+.help-band-p { margin: 0; color: var(--ink-2); font-size: 14px; }
+.help-band-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 .footer { border-top: 1px solid var(--ink); background: var(--paper-2); margin-top: auto; }
 .footer-inner { padding-top: 28px; padding-bottom: 40px; }
 .footer-source { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 12px; }
