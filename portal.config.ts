@@ -168,6 +168,8 @@ export default defineConfig({
     url: "https://github.com/aaronaco"
   },
   repo: "https://github.com/aaronaco/caloocan-transparency-portal",
+  // contactEmail: project only email address. 
+  contributing: "https://github.com/aaronaco/caloocan-transparency-portal/blob/HEAD/.github/CONTRIBUTING.md",
   siteUrl: "https://caloocan-portal.transparency-portal.workers.dev",
   siteName: "Caloocan Budget Portal (independent)",
   independence: "Independent project. Not run by the City Government of Caloocan.",

@@ -1,0 +1,33 @@
+name: Something else
+description: A problem with the site, a broken link, or a suggestion.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Issues are public and permanent, and tied to your GitHub account.**
+
+        Don't include personal details: names of private people, phone numbers, addresses, photos of people, or geotagged photos. Describe the listing, not people.
+
+        Claims of wrongdoing go to official bodies such as the Commission on Audit or the Office of the Ombudsman, not here.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What is it
+      options:
+        - Something on the site doesn't work
+        - A broken link
+        - A suggestion
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: The address of the page, if it's about one.
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+    validations:
+      required: true

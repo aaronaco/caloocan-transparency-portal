@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://caloocan-portal.transparency-portal.workers.dev/sitemap.xml

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: National budget data
+    url: https://budget.bettergov.ph
+    about: Every project nationwide, and how the data is made, on BetterGov.PH's budget site.
+  - name: No GitHub account?
+    url: https://caloocan-portal.transparency-portal.workers.dev/about#help
+    about: The About page has the other ways to report.

@@ -381,6 +381,7 @@
 .report p.small { margin: 0; color: var(--ink-2); }
 .report-listing { margin-top: 14px; background: none; border-left: 3px solid var(--accent); }
 .report-listing p.small { margin: 0 0 10px; }
+.report-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .links { line-height: 1.9; margin: 0; }
 
 /* ---------- About ---------- */
@@ -406,6 +407,7 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--paper-
 .footer-inner { padding-top: 28px; padding-bottom: 40px; }
 .footer-independence { font-size: 13.5px; font-weight: 600; color: var(--ink); margin: 0 0 12px; }
 .footer-source { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 12px; }
+.footer-changes { font-size: 12.5px; color: var(--ink-2); margin: -4px 0 12px; }
 .footer-notice { font-size: 12.5px; color: var(--ink-2); max-width: 900px; margin: 0 0 20px; line-height: 1.55; }
 .footer-links { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; font-size: 13.5px; }
 .footer-links li { display: flex; flex-direction: column; gap: 4px; }

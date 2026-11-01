@@ -66,13 +66,22 @@ function ProjectView({ env }: { env: Envelope<ProjectDetail> }) {
   // undefined while the scope loads; null once it is known the line is not in it.
   const inScope = scope.status === 'ready' ? scope.value.projects.find((x) => x.key === projectKey(p.dataset, p.id)) ?? null : undefined;
   const versions = VERSIONS.filter((v) => v !== 'api' || p.dataset === 'dpwh');
-  const report = reportHref(config, p, window.location.origin + location.pathname);
+  const pageUrl = window.location.origin + location.pathname;
+  const report = reportHref(config, p, pageUrl);
   // A wrong listing in this portal (a namesake, the wrong office) goes to its own repository, not the central report.
+  // The GitHub link opens the "wrong-project" issue form with its `project` field filled in.
+  const wrongTitle = `Wrong project: ${p.title}`;
   const wrongListing = config.repo
     ? `${config.repo}/issues/new?${new URLSearchParams({
-        title: `Wrong project: ${p.title}`,
-        body: `Project: ${p.title}\nKey: ${projectKey(p.dataset, p.id)}\nPage: ${window.location.origin + location.pathname}\n\nWhat's wrong (wrong city, wrong office, other):\n`,
+        template: 'wrong-project.yml',
+        title: wrongTitle,
+        project: `${p.title}\n${pageUrl}\nKey: ${projectKey(p.dataset, p.id)}`,
       })}`
+    : null;
+  const wrongListingEmail = config.contactEmail
+    ? `mailto:${config.contactEmail}?subject=${encodeURIComponent(wrongTitle)}&body=${encodeURIComponent(
+        `Key: ${projectKey(p.dataset, p.id)}\nPage: ${pageUrl}\n\nWhat's wrong:\n`,
+      )}`
     : null;
 
   const details: [string, string | null][] = [
@@ -188,13 +197,16 @@ function ProjectView({ env }: { env: Envelope<ProjectDetail> }) {
             )}
           </div>
 
-          {wrongListing && (
+          {(wrongListing || wrongListingEmail) && (
             <div className="report report-listing">
               <p className="label">Something wrong with this line here?</p>
               <p className="small">
                 Not in {shortNameOf(config)}, or listed wrong on this page? Tell us and we'll fix it.
               </p>
-              <a className="button" href={wrongListing} target="_blank" rel="noopener">Report it on GitHub ↗</a>
+              <div className="report-actions">
+                {wrongListing && <a className="button" href={wrongListing} target="_blank" rel="noopener">Report it on GitHub ↗</a>}
+                {wrongListingEmail && <a className="button" href={wrongListingEmail}>Email us</a>}
+              </div>
             </div>
           )}
 
