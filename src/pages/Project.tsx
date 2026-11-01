@@ -63,7 +63,8 @@ function ProjectView({ env }: { env: Envelope<ProjectDetail> }) {
   const ov = overview.status === 'ready' ? overview.value.data : null;
   const program = ov?.datasets.find((d) => d.key === p.dataset);
   const versionLabel = (v: Version) => ov?.record_versions.find((r) => r.key === v)?.label ?? FALLBACK_VERSION_LABELS[v];
-  const inScope = scope.status === 'ready' ? scope.value.projects.find((x) => x.key === projectKey(p.dataset, p.id)) : undefined;
+  // undefined while the scope loads; null once it is known the line is not in it.
+  const inScope = scope.status === 'ready' ? scope.value.projects.find((x) => x.key === projectKey(p.dataset, p.id)) ?? null : undefined;
   const versions = VERSIONS.filter((v) => v !== 'api' || p.dataset === 'dpwh');
   const report = reportHref(config, p, window.location.origin + location.pathname);
   // A wrong listing in this portal (a namesake, the wrong office) goes to its own repository, not the central report.
@@ -96,6 +97,9 @@ function ProjectView({ env }: { env: Envelope<ProjectDetail> }) {
       <div className="project-status">
         <StatusChip group={p.bridge_group} label={p.status_label} held={p.held} />
         {p.labels.status.help && <p className="muted">{p.labels.status.help}</p>}
+        {p.bridge_group !== 'unchanged' && (
+          <p className="muted">A difference between two budget versions. It’s a lead to check, not proof that anyone did anything wrong.</p>
+        )}
       </div>
 
       <div className="project-grid">
@@ -162,8 +166,12 @@ function ProjectView({ env }: { env: Envelope<ProjectDetail> }) {
               <dd>
                 {inScope ? (
                   <ReasonTags reasons={inScope.reasons} />
-                ) : (
+                ) : inScope === null ? (
                   <span className="muted">It is not among this portal’s projects; it is shown because you followed a link to it.</span>
+                ) : scope.status === 'error' ? (
+                  <span className="muted">Could not check: this portal’s list of projects did not load.</span>
+                ) : (
+                  <span className="muted">Checking…</span>
                 )}
               </dd>
             </div>

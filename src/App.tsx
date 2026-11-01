@@ -1,4 +1,4 @@
-import { Link, Navigate, Route, Routes } from 'react-router-dom';
+import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { Footer, Masthead } from './components/Chrome';
 import ScrollToTop from './components/ScrollToTop';
 import { configProblems } from './config';
@@ -7,9 +7,12 @@ import About from './pages/About';
 import Home from './pages/Home';
 import Project from './pages/Project';
 import Enacted from './pages/Enacted';
+import { useCanonical } from './lib/use-title';
 
 export default function App() {
   const { config } = usePortal();
+  const { pathname } = useLocation();
+  useCanonical(config.siteUrl, pathname);
   const problems = import.meta.env.DEV ? configProblems(config) : [];
   return (
     <>

@@ -309,7 +309,7 @@ function Stats({ summary, programName }: { summary: Summary; programName: (k: Da
       <div>
         <dt className="label">In the House bill only</dt>
         <dd className="stat num">{count(summary.groups.house_only.rows)}</dd>
-        <dd className="stat-sub">{php(summary.groups.house_only.house_php)} · insertion candidates</dd>
+        <dd className="stat-sub">{php(summary.groups.house_only.house_php)} · candidates to check</dd>
       </div>
     </dl>
   );

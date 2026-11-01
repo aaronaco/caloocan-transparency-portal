@@ -80,6 +80,84 @@ const VALENZUELA_LINES = [
 ];
 const VALENZUELA_REASON = 'The title names Valenzuela City. It is listed under the Metro Manila 3rd District Engineering Office, which serves both Caloocan and Valenzuela.';
 
+// Other lines under the shared office whose titles name no city:
+// - dpwh:house-reading:3694, 3695 and 3696 (the creek between Makabud St. and
+//   Kupang St.) are kept: both streets are in Barangay 179, Caloocan. The 2025
+//   GAA has "Rehabilitation of Road along Makabud St. and Anahaw St., Barangay
+//   179, Caloocan City", and 2027 line dpwh:house-reading:6187 is "Kupang St,
+//   Barangay 179, Caloocan City".
+// - dpwh:house-reading:5484 (a rainwater collector, titled only with the office
+//   name) is kept: it is for the office as a whole and could serve either city.
+// - dpwh:house-reading:1098 (Gov. T. Santiago St.) is removed, below.
+const T_SANTIAGO_REASON = 'Likely Valenzuela City, though the title names no city: T. Santiago is a Valenzuela barangay, and the 2023 GAA lists "Streetlighting along T. Santiago St." in Valenzuela City. It is listed under the Metro Manila 3rd District Engineering Office, which serves both cities.';
+
+// The 2020–2026 budgets (GAA) give no region, so the search for "Caloocan" also
+// finds barangays named Caloocan in other provinces. Each family below is named
+// after one of them. Lines that say only "…, Caloocan" (Brgy. 180, Caloocan)
+// are Caloocan City's and stay.
+const GAA_NAMESAKES: [place: string, keys: string[]][] = [
+  ["Barangay Caloocan, Balayan, Batangas", [
+    "gaa:18-001|construction of multipurpose building municipal building brgy caloocan balayan batangas 13945583120628777",
+    "gaa:18-001|construction of multipurpose building caloocan elementary school balayan batangas 139526506 1207240035",
+    "gaa:18-001|completion of multipurpose buidling covered court brgy caloocan balayan batangas",
+    "gaa:18-001|completion of multipurpose building including facilities at barangay caloocan balayan batangas",
+    "gaa:18-001|construction completion of multipurpose building evacuation center in barangay caloocan balayan batangas",
+    "gaa:18-001|construction completion of multipurpose building barangay caloocan balayan batangas",
+    "gaa:18-001|construction of drainage system government center site barangay caloocan balayan batangas",
+    "gaa:18-001|construction of road brgy caloocan balayan batangas",
+    "gaa:18-001|construction completion of multipurpose building covered court in brgy caloocan balayan batangas",
+    "gaa:18-001|construction completion of multipurpose building new hall of justice balayan government center brgy caloocan balayan batangas",
+    "gaa:18-001|construction of multipurpose building government office facility brgy caloocan balayan batangas",
+    "gaa:18-001|construction of multipurpose building in brgy caloocan balayan batangas",
+    "gaa:18-001|construction of multipurpose building barangay caloocan balayan batangas",
+    "gaa:18-001|completion of multipurpose building in brgy caloocan balayan batangas",
+    "gaa:18-001|construction of evacuation center brgy caloocan balayan batangas",
+    "gaa:18-001|construction of multipurpose building including facilities barangay caloocan balayan batangas",
+    "gaa:18-001|construction of multipurpose building municipal buildingevacuation center brgy caloocan balayan batangas",
+    "gaa:18-001|construction of multipurpose building including facilities brgy caloocan balayan batangas",
+    "gaa:18-001|construction of multipurpose building balayan senior high school caloocan balayan batangas",
+    "gaa:18-001|construction of multipurpose building hall of justice brgy caloocan balayan batangas",
+    "gaa:18-001|construction of road at government center barangay caloocan balayan batangas",
+    "gaa:18-001|construction of multipurpose building extension of day care center brgy caloocan balayan batangas",
+    "gaa:18-001|construction of road caloocan balayan batangas",
+  ]],
+  ["Barangay Caloocan, Talisay, Batangas", [
+    "gaa:05-001|concreting of fmr at brgy caloocan talisay batangas",
+  ]],
+  ["Barangays Caloocan Norte and Caloocan Sur, Binmaley, Pangasinan", [
+    "gaa:18-001|pangasinanzambales road to judge jose de venecia boulevard extn road barangay poblacionbarangay caloocan sur section sta 1  180  sta 1  800 binmaley pangasinan",
+    "gaa:18-001|construction concreting of road brgy caloocan norte binmaley pangasinan",
+    "gaa:18-001|rehabilitation of road in brgy caloocan norte binmaley pangasinan",
+    "gaa:18-001|concretingupgradingrehabilitation of brgy roads in caloocan sur binmaley pangasinan",
+  ]],
+  ["Barangay Caloocan, Koronadal City, South Cotabato", [
+    "gaa:18-001|construction of road crisologo street barangay caloocan city of koronadal sta 0000sta 0375 south cotabato",
+    "gaa:18-001|construction of one 1 storey  two 2 classroom school building caloocan elementary school 131387 barangay caloocan koronadal city south cotabato",
+    "gaa:18-001|construction of multi  purpose building brgy caloocan koronadal city south cotabato",
+    "gaa:18-001|construction completion of multipurpose building brgy caloocan koronadal city south cotabato",
+  ]],
+  ["South Cotabato (the San Felipe, Tantangan–Caloocan–San Roque–Tampakan road)", [
+    "gaa:18-001|construction of jct nhw san felipe tantangancaloocansan roquetampakan boundary sta 0000sta 1127 south cotabato",
+    "gaa:18-001|jct nhw  san felipe tantangan caloocan san roque  tampakan boundary sta 0000sta 1127 south cotabato",
+  ]],
+  ["Barangay Caloocan, Matnog, Sorsogon", [
+    "gaa:18-001|construction of multipurpose building covered court at brgy caloocan matnog sorsogon",
+    "gaa:18-001|rehabilitation of swamp and construction of river flood protection structure at brgys caloocan camcaman camachiles and tablac matnog sorsogon",
+  ]],
+  ["Sitio Caloocan, Barangay Balete, Sorsogon City", [
+    "gaa:18-001|construction of drainage canal sitio caloocan barangay balete bacon district sorsogon city sorsogon",
+  ]],
+  ["Barangay Caloocan, San Jose City, Nueva Ecija", [
+    "gaa:18-001|concreting of caloocan san jose city  ligaya llanera san jose city nueva ecija",
+  ]],
+  ["Caloocan, Cabarroguis, Quirino", [
+    "gaa:18-001|construction of multi purpose buildingevacuation center caloocan cabarroguis quirino",
+  ]],
+  ["Barangay Caloocan, Santiago City, Isabela", [
+    "gaa:18-001|construction of multipurpose building sicat tesda barangay caloocan santiago city isabela",
+  ]],
+];
+
 export default defineConfig({
   id: "caloocan-city",
   kind: "city",
@@ -91,6 +169,8 @@ export default defineConfig({
   },
   repo: "https://github.com/aaronaco/caloocan-transparency-portal",
   siteUrl: "https://caloocan-portal.transparency-portal.workers.dev",
+  siteName: "Caloocan Budget Portal (independent)",
+  independence: "Independent project. Not run by the City Government of Caloocan.",
   // The footer already links to the source, the national site and the API.
   buildYourOwnStrip: false,
   topBar: false,
@@ -103,6 +183,13 @@ export default defineConfig({
         label: "Caloocan City",
         q: "Caloocan",
         region: "NCR"
+      },
+      // In Tala, Caloocan, but its HFEP lines never say "Caloocan".
+      {
+        label: "Dr. Jose N. Rodriguez Memorial Hospital (Tala, Caloocan)",
+        q: "Jose Rodriguez Memorial",
+        region: "NCR",
+        datasets: ["hfep"]
       }
     ],
     districts: [
@@ -110,7 +197,13 @@ export default defineConfig({
       "leg:caloocan-city:2nd",
       "leg:caloocan-city:3rd"
     ],
-    exclude: VALENZUELA_LINES.map((key) => ({ key, reason: VALENZUELA_REASON }))
+    exclude: [
+      ...VALENZUELA_LINES.map((key) => ({ key, reason: VALENZUELA_REASON })),
+      { key: "dpwh:house-reading:1098", reason: T_SANTIAGO_REASON },
+      ...GAA_NAMESAKES.flatMap(([place, keys]) =>
+        keys.map((key) => ({ key, reason: `The name places it in ${place}, not Caloocan City.` })),
+      ),
+    ]
   },
   reporting: {
     enabled: false
