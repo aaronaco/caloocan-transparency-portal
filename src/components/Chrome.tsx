@@ -92,8 +92,27 @@ export function Masthead() {
 
 export function Footer() {
   const { config, scope, client } = usePortal();
+  const { pathname } = useLocation();
   const meta = scope.status === 'ready' ? scope.value.meta : null;
   return (
+    <>
+    {/* The About page has its own "Help improve this portal" box. */}
+    {config.repo && pathname !== '/about' && (
+      <section className="help-band" aria-labelledby="help-band-h">
+        <div className="page help-band-inner">
+          <div>
+            <h2 id="help-band-h" className="help-band-h">Help improve this portal</h2>
+            <p className="help-band-p">
+              Found a project that isn't {shortNameOf(config)}'s, or one that's missing? Fixes are welcome.
+            </p>
+          </div>
+          <div className="help-band-actions">
+            <a className="button button-primary" href={`${config.repo}/issues`} target="_blank" rel="noopener">Report a problem ↗</a>
+            <a className="button" href={config.repo} target="_blank" rel="noopener">Contribute on GitHub ↗</a>
+          </div>
+        </div>
+      </section>
+    )}
     <footer className="footer">
       <div className="page footer-inner">
         <p className="footer-source">
@@ -104,17 +123,23 @@ export function Footer() {
         <ul className="footer-links">
           <li>
             <span className="label">This portal</span>
-            <span>
-              {shortNameOf(config)}, run by{' '}
-              {config.operator.url ? (
-                <a href={config.operator.url} target="_blank" rel="noopener">{config.operator.name}</a>
-              ) : (
-                config.operator.name
-              )}
-              {config.operator.email && (
-                <> · <a href={`mailto:${config.operator.email}`}>{config.operator.email}</a></>
-              )}
-            </span>
+            {config.repo ? (
+              <span>
+                {shortNameOf(config)} · <a href={config.repo} target="_blank" rel="noopener">Contribute on GitHub ↗</a>
+              </span>
+            ) : (
+              <span>
+                {shortNameOf(config)}, run by{' '}
+                {config.operator.url ? (
+                  <a href={config.operator.url} target="_blank" rel="noopener">{config.operator.name}</a>
+                ) : (
+                  config.operator.name
+                )}
+                {config.operator.email && (
+                  <> · <a href={`mailto:${config.operator.email}`}>{config.operator.email}</a></>
+                )}
+              </span>
+            )}
           </li>
           <li>
             <span className="label">Every project, nationwide</span>
@@ -131,6 +156,7 @@ export function Footer() {
         </ul>
       </div>
     </footer>
+    </>
   );
 }
 

@@ -54,6 +54,11 @@ export interface PortalConfig {
   shortName?: string;
   /** Who runs this copy of the portal. Shown in the footer. */
   operator: { name: string; url?: string; email?: string };
+  /**
+   * This portal's own source code. When set, the footer links to it
+   * ("Contribute on GitHub") in place of naming the operator.
+   */
+  repo?: string;
   /** Optional logo: a path under public/ ("/brand/lgu-seal.png") or a URL. */
   logo?: string;
   /** Canonical URL of this deployment, for link previews. */

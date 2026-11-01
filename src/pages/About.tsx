@@ -150,14 +150,25 @@ function AboutView({ scope, overview }: { scope: ScopeResult; overview: Overview
         </p>
       </section>
 
-      <section className="section build-own" aria-labelledby="b-h">
-        <h2 id="b-h" className="section-h">Run a portal like this for your LGU or DPWH office</h2>
-        <p>
-          This portal is open source. Fork it, run <code>npm run setup</code> to pick your province, city, municipality or
-          district engineering office, and deploy it to Cloudflare, Vercel or Netlify. It needs no database: the data comes
-          from the same API. <External href={SOURCE_CODE_URL}>Source code</External> · <Link to="/">Back to the projects</Link>
-        </p>
-      </section>
+      {config.repo ? (
+        <section className="section build-own" aria-labelledby="b-h">
+          <h2 id="b-h" className="section-h">Help improve this portal</h2>
+          <p>
+            Found a project that isn't {shortNameOf(config)}'s, or one that's missing? This portal is open source, and fixes
+            are welcome. <External href={`${config.repo}/issues`}>Report a problem</External> ·{' '}
+            <External href={config.repo}>Contribute on GitHub</External> · <Link to="/">Back to the projects</Link>
+          </p>
+        </section>
+      ) : (
+        <section className="section build-own" aria-labelledby="b-h">
+          <h2 id="b-h" className="section-h">Run a portal like this for your LGU or DPWH office</h2>
+          <p>
+            This portal is open source. Fork it, run <code>npm run setup</code> to pick your province, city, municipality or
+            district engineering office, and deploy it to Cloudflare, Vercel or Netlify. It needs no database: the data comes
+            from the same API. <External href={SOURCE_CODE_URL}>Source code</External> · <Link to="/">Back to the projects</Link>
+          </p>
+        </section>
+      )}
     </>
   );
 }

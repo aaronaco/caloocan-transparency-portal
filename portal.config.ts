@@ -89,6 +89,7 @@ export default defineConfig({
     name: "aaronaco",
     url: "https://github.com/aaronaco"
   },
+  repo: "https://github.com/aaronaco/caloocan-transparency-portal",
   siteUrl: "https://caloocan-portal.transparency-portal.workers.dev",
   // The footer already links to the source, the national site and the API.
   buildYourOwnStrip: false,
