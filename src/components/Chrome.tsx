@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { KIND_LABELS, shortNameOf } from '../config';
 import { usePortal } from '../lib/portal-context';
 import { date } from '../lib/format';
-import { NATIONAL_URL, SOURCE_CODE_URL } from '../lib/links';
+import { DATA_LICENSE, NATIONAL_URL, SOURCE_CODE_URL } from '../lib/links';
 
 const BETTERGOV_LOGO = '/brand/bettergov-horizontal-primary.png';
 
@@ -97,7 +97,7 @@ export function Footer() {
   return (
     <>
     {/* The About page has its own "Help improve this portal" box. */}
-    {config.repo && pathname !== '/about' && (
+    {(config.repo || config.contactEmail) && pathname !== '/about' && (
       <section className="help-band" aria-labelledby="help-band-h">
         <div className="page help-band-inner">
           <div>
@@ -107,8 +107,11 @@ export function Footer() {
             </p>
           </div>
           <div className="help-band-actions">
-            <a className="button button-primary" href={`${config.repo}/issues`} target="_blank" rel="noopener">Report a problem ↗</a>
-            <a className="button" href={config.repo} target="_blank" rel="noopener">Contribute on GitHub ↗</a>
+            {config.repo && (
+              <a className="button button-primary" href={`${config.repo}/issues`} target="_blank" rel="noopener">Report a problem ↗</a>
+            )}
+            {config.contactEmail && <a className="button" href={`mailto:${config.contactEmail}`}>Email us</a>}
+            {config.repo && <a className="button" href={config.repo} target="_blank" rel="noopener">Contribute on GitHub ↗</a>}
           </div>
         </div>
       </section>
@@ -117,9 +120,15 @@ export function Footer() {
       <div className="page footer-inner">
         {config.independence && <p className="footer-independence">{config.independence}</p>}
         <p className="footer-source">
-          Source: NEP FY 2027 and House Bill 10858 · via the BetterGov.ph Budget API
+          Source: NEP FY 2027 and House Bill 10858 · via the BetterGov.ph Budget API,{' '}
+          <a href={DATA_LICENSE.url} target="_blank" rel="noopener license">{DATA_LICENSE.name}</a>
           {meta && <> · data built {date(meta.built_at)}</>}
         </p>
+        {(config.scope.exclude?.length ?? 0) > 0 && (
+          <p className="footer-changes">
+            Lines removed here are <Link to={{ pathname: '/about', hash: '#removed' }}>listed on the About page</Link>.
+          </p>
+        )}
         {meta && <p className="footer-notice">{meta.notice}</p>}
         <ul className="footer-links">
           <li>

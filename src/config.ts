@@ -59,6 +59,17 @@ export interface PortalConfig {
    * ("Contribute on GitHub") in place of naming the operator.
    */
   repo?: string;
+  /**
+   * An address for reports from people without a GitHub account. When set, the
+   * "Help improve this portal" band, the About page and each project page offer
+   * "Email us" beside the GitHub links. Use an address for the project only.
+   */
+  contactEmail?: string;
+  /**
+   * The rules for reports and fixes: a link to this portal's CONTRIBUTING.md.
+   * When set, the About page's "Help improve this portal" box links to it.
+   */
+  contributing?: string;
   /** Optional logo: a path under public/ ("/brand/lgu-seal.png") or a URL. */
   logo?: string;
   /** Canonical URL of this deployment. Each page names its own address under it as canonical. */
@@ -128,6 +139,9 @@ export function configProblems(config: PortalConfig): string[] {
   }
   if (!config.name.trim()) problems.push('name is empty.');
   if (!config.operator?.name?.trim()) problems.push('operator.name is empty: say who runs this portal.');
+  if (config.contactEmail !== undefined && !/^[^\s@]+@[^\s@]+$/.test(config.contactEmail)) {
+    problems.push(`contactEmail "${config.contactEmail}" should be an email address.`);
+  }
   const { offices = [], places = [], districts = [], exclude = [] } = config.scope;
   if (!offices.length && !places.length) {
     problems.push('scope needs at least one office or place, or the portal has no projects.');

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import type { Disclaimer, Overview } from '../api/types';
 import { shortNameOf } from '../config';
 import { Await, Disclaimers, External } from '../components/Bits';
 import { PageHead } from '../components/Chrome';
 import { count, date, plural } from '../lib/format';
-import { SOURCE_CODE_URL } from '../lib/links';
+import { DATA_LICENSE, SOURCE_CODE_URL } from '../lib/links';
 import { usePortal } from '../lib/portal-context';
 import type { ScopeResult } from '../lib/scope';
 import { departmentShort, loadGaa, type GaaResult } from '../lib/gaa';
@@ -45,6 +45,11 @@ function AboutView({ scope, overview }: { scope: ScopeResult; overview: Overview
   for (const d of scope.disclaimers) disclaimers.set(d.id, d);
   if (districts.status === 'ready') for (const env of districts.value) for (const d of env.disclaimers) disclaimers.set(d.id, d);
   const meta = scope.meta;
+  // Links into the page (#removed, #help) arrive before it renders.
+  const { hash } = useLocation();
+  useEffect(() => {
+    if (hash) document.getElementById(decodeURIComponent(hash.slice(1)))?.scrollIntoView({ block: 'start' });
+  }, [hash]);
 
   return (
     <>
@@ -90,7 +95,7 @@ function AboutView({ scope, overview }: { scope: ScopeResult; overview: Overview
 
       <GaaQuestions />
 
-      <section className="section" aria-labelledby="x-h">
+      <section className="section" id="removed" aria-labelledby="x-h">
         <h2 id="x-h" className="section-h">2027 lines removed by hand: {count(scope.excluded.length)}</h2>
         {scope.excluded.length === 0 ? (
           <p>None. Every line the questions return is shown.</p>
@@ -149,15 +154,22 @@ function AboutView({ scope, overview }: { scope: ScopeResult; overview: Overview
           Data version: comparison <a href={`${meta.source_repo}/tree/${meta.source_commit}`} target="_blank" rel="noopener">{meta.source_commit.slice(0, 7)}</a>,
           built {date(meta.built_at)}. Every project nationwide: <External href={overview.url}>budget.bettergov.ph</External>.
         </p>
+        <p className="fine">
+          The data is from the BetterGov.ph Budget API, under <External href={DATA_LICENSE.url}>{DATA_LICENSE.name}</External>.
+          {(config.scope.exclude?.length ?? 0) > 0 && ' This portal removed the lines listed above.'}
+        </p>
       </section>
 
-      {config.repo ? (
-        <section className="section build-own" aria-labelledby="b-h">
+      {config.repo || config.contactEmail ? (
+        <section className="section build-own" id="help" aria-labelledby="b-h">
           <h2 id="b-h" className="section-h">Help improve this portal</h2>
           <p>
-            Found a project that isn't {shortNameOf(config)}'s, or one that's missing? This portal is open source, and fixes
-            are welcome. <External href={`${config.repo}/issues`}>Report a problem</External> ·{' '}
-            <External href={config.repo}>Contribute on GitHub</External> · <Link to="/">Back to the projects</Link>
+            Found a project that isn't {shortNameOf(config)}'s, or one that's missing? {config.repo && 'This portal is open source, and fixes are welcome. '}
+            {config.repo && <><External href={`${config.repo}/issues`}>Report a problem</External> · </>}
+            {config.contactEmail && <><a href={`mailto:${config.contactEmail}`}>Email us</a> · </>}
+            {config.repo && <><External href={config.repo}>Contribute on GitHub</External> · </>}
+            {config.contributing && <><External href={config.contributing}>How reports are handled</External> · </>}
+            <Link to="/">Back to the projects</Link>
           </p>
         </section>
       ) : (

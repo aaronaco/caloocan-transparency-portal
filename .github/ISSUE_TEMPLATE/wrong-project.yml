@@ -1,0 +1,44 @@
+name: Wrong or missing project
+description: A project here that isn't Caloocan's or is listed wrong, or a Caloocan project the portal doesn't show.
+labels: [wrong-listing]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Issues are public and permanent, and tied to your GitHub account.**
+
+        Don't include personal details: names of private people, phone numbers, addresses, photos of people, or geotagged photos. Describe the listing, not people.
+
+        Claims of wrongdoing go to official bodies such as the Commission on Audit or the Office of the Ombudsman, not here.
+  - type: textarea
+    id: project
+    attributes:
+      label: Project
+      description: The link to the project's page on this portal, or its title.
+    validations:
+      required: true
+  - type: input
+    id: source-page
+    attributes:
+      label: Source page
+      description: The budget document and page, if you know it.
+      placeholder: House Bill 10858, page 1234
+  - type: dropdown
+    id: problem
+    attributes:
+      label: What's wrong
+      options:
+        - Not in Caloocan
+        - Wrong office
+        - Missing project
+        - Wrong amount or page
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What you found, and how you know.
+    validations:
+      required: true

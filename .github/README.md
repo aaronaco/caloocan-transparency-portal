@@ -70,6 +70,9 @@ npm run check     # tests the config against the live API
 npm run dev       # http://localhost:5132
 ```
 
+`public/sitemap.xml` lists every project page. Rebuild it with `npx tsx scripts/caloocan-sitemap.ts`
+when the scope or the data changes.
+
 ## Deploying
 
 The site runs on Cloudflare Workers:
@@ -81,4 +84,10 @@ npm run deploy:cloudflare
 
 ## License
 
-MIT. See [LICENSE](../LICENSE). The budget documents are works of the Philippine government.
+The code is MIT. See [LICENSE](../LICENSE).
+
+The data is from the [BetterGov.ph Budget API](https://budget.bettergov.ph/docs), under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). I removed some lines; each one is listed
+on the [About page](https://caloocan-portal.transparency-portal.workers.dev/about#removed).
+
+The budget documents are works of the Philippine government.
