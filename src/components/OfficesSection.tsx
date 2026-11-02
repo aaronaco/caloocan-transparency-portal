@@ -188,6 +188,12 @@ function Office({ view }: { view: OfficeView }) {
         <ul>
           {districts.map((d) => <District key={d.id} row={d} />)}
         </ul>
+        {/* On the card itself, so a screenshot of one card keeps it. */}
+        {districts.some((d) => d.card?.representative) && (
+          <p className="ocard-note ocard-reps">
+            Representatives are listed to help you find your district, not because they asked for these projects.
+          </p>
+        )}
       </div>
 
       {!query && office.projects_url && (

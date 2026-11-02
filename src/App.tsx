@@ -11,9 +11,13 @@ import { useCanonical } from './lib/use-title';
 
 export default function App() {
   const { config } = usePortal();
-  const { pathname } = useLocation();
+  const { pathname, search, hash } = useLocation();
   useCanonical(config.siteUrl, pathname);
   const problems = import.meta.env.DEV ? configProblems(config) : [];
+  // "/about/" renders the same page as "/about"; send it there, so the page has one address.
+  if (pathname.length > 1 && pathname.endsWith('/')) {
+    return <Navigate to={{ pathname: pathname.replace(/\/+$/, '') || '/', search, hash }} replace />;
+  }
   return (
     <>
       <ScrollToTop />
