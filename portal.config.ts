@@ -209,5 +209,27 @@ export default defineConfig({
   },
   reporting: {
     enabled: false
-  }
+  },
+  corrections: [
+    {
+      date: "2026-11-01",
+      what: `Removed ${GAA_NAMESAKES.flatMap(([, keys]) => keys).length} programs from the 2020–2026 budgets whose names place them in barangays called Caloocan in other provinces (Batangas, Pangasinan, South Cotabato, Sorsogon, Nueva Ecija, Quirino and Isabela).`,
+      url: "https://github.com/aaronaco/caloocan-transparency-portal/pull/5",
+    },
+    {
+      date: "2026-11-01",
+      what: "Added the 2027 health facility lines for Dr. Jose N. Rodriguez Memorial Hospital in Tala, Caloocan. Their titles never say “Caloocan”, so the name search missed them.",
+      url: "https://github.com/aaronaco/caloocan-transparency-portal/pull/5",
+    },
+    {
+      date: "2026-11-01",
+      what: "Removed one more line under the shared DPWH office, on Gov. T. Santiago St. Its title names no city, but the street is most likely in Valenzuela City.",
+      url: "https://github.com/aaronaco/caloocan-transparency-portal/pull/5",
+    },
+    {
+      date: "2026-11-01",
+      what: `Removed ${VALENZUELA_LINES.length} lines under the Metro Manila 3rd District Engineering Office whose titles name Valenzuela City. The office serves both cities.`,
+      url: "https://github.com/aaronaco/caloocan-transparency-portal/pull/2",
+    },
+  ],
 });

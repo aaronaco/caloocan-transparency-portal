@@ -122,6 +122,18 @@ export interface PortalConfig {
    * See docs/reporting.md for the link contract.
    */
   reporting?: { enabled: boolean; url?: string };
+  /** Changes to what the portal shows, newest first. Published on the About page. */
+  corrections?: Correction[];
+}
+
+/** One change to the portal's scope or figures, as readers see it on the About page. */
+export interface Correction {
+  /** YYYY-MM-DD. */
+  date: string;
+  /** What changed and why, in a sentence or two. */
+  what: string;
+  /** Where it was raised or made: an issue or pull request. */
+  url?: string;
 }
 
 export const DEFAULT_API = 'https://budget.bettergov.ph';
@@ -141,6 +153,12 @@ export function configProblems(config: PortalConfig): string[] {
   if (!config.operator?.name?.trim()) problems.push('operator.name is empty: say who runs this portal.');
   if (config.contactEmail !== undefined && !/^[^\s@]+@[^\s@]+$/.test(config.contactEmail)) {
     problems.push(`contactEmail "${config.contactEmail}" should be an email address.`);
+  }
+  if (config.repo && !/^https:\/\/\S+[^/]$/.test(config.repo)) {
+    problems.push(`repo "${config.repo}" should be an https:// address with no slash at the end ("${config.repo.replace(/\/+$/, '')}").`);
+  }
+  for (const c of config.corrections ?? []) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(c.date)) problems.push(`correction "${c.what}": date should be YYYY-MM-DD.`);
   }
   const { offices = [], places = [], districts = [], exclude = [] } = config.scope;
   if (!offices.length && !places.length) {

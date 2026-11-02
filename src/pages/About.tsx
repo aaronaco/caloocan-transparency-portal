@@ -100,6 +100,11 @@ function AboutView({ scope, overview }: { scope: ScopeResult; overview: Overview
         {scope.excluded.length === 0 ? (
           <p>None. Every line the questions return is shown.</p>
         ) : (
+          <>
+          <p>
+            Removed by this portal’s maintainer, not by BetterGov.ph.
+            {config.repo && <> Disagree with one? <External href={`${config.repo}/issues`}>Report a problem</External></>}
+          </p>
           <ul className="plain-list">
             {scope.excluded.map(({ exclusion, project }) => (
               <li key={exclusion.key}>
@@ -112,8 +117,24 @@ function AboutView({ scope, overview }: { scope: ScopeResult; overview: Overview
               </li>
             ))}
           </ul>
+          </>
         )}
       </section>
+
+      {config.corrections && config.corrections.length > 0 && (
+        <section className="section" aria-labelledby="c-h">
+          <h2 id="c-h" className="section-h">Corrections</h2>
+          <p>Every change to what this portal shows, newest first.</p>
+          <ul className="plain-list">
+            {config.corrections.map((c) => (
+              <li key={c.date + c.what}>
+                <strong>{date(c.date)}</strong> — {c.what}
+                {c.url && <> <External href={c.url}>Details</External></>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section className="section two-col" aria-labelledby="r-h">
         <div>
