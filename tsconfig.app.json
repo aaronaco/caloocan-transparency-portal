@@ -22,5 +22,5 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "portal.config.ts", "examples"]
+  "include": ["src", "portal.config.ts", "examples", ".storybook"]
 }

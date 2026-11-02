@@ -6,6 +6,8 @@ import { shortNameOf, type DatasetKey } from '../config';
 import { Await, Disclaimers, ReasonTags, StatusChip } from '../components/Bits';
 import { PageHead } from '../components/Chrome';
 import OfficesSection from '../components/OfficesSection';
+import MoreFilters from '../components/MoreFilters';
+import StartHere from '../components/StartHere';
 import { projectsCsv, downloadText } from '../lib/csv';
 import { count, php, phpDelta, plural } from '../lib/format';
 import { usePortal } from '../lib/portal-context';
@@ -126,6 +128,8 @@ function Projects({ scope, datasets }: { scope: ScopeResult; datasets: DatasetIn
         <Lede summary={summary} />
       </PageHead>
 
+      <StartHere summary={summary} />
+
       <Stats summary={summary} programName={programName} />
 
       <OfficesSection />
@@ -172,6 +176,7 @@ function Projects({ scope, datasets }: { scope: ScopeResult; datasets: DatasetIn
             <span className="label">Search</span>
             <input type="search" value={q} placeholder="Barangay, road, school, office…" onChange={(e) => setParam('q', e.target.value)} />
           </label>
+          <MoreFilters active={[program, status, office, why].filter(Boolean).length + (sort !== 'house' ? 1 : 0)}>
           <label className="field">
             <span className="label">Program</span>
             <select value={program} onChange={(e) => setParam('program', e.target.value)}>
@@ -214,6 +219,7 @@ function Projects({ scope, datasets }: { scope: ScopeResult; datasets: DatasetIn
               {(Object.keys(SORTS) as Sort[]).map((k) => <option key={k} value={k}>{SORTS[k].label}</option>)}
             </select>
           </label>
+          </MoreFilters>
         </div>
 
         {narrowed && (
